@@ -12,6 +12,7 @@ import { useSelector } from 'react-redux';
 import { ACCOUNT_TYPE } from './utils/Constants';
 import { Error } from './pages/Error';
 import { jwtDecode } from 'jwt-decode';
+import { Profile } from './pages/Profile';
 
 
 function App() {
@@ -58,7 +59,11 @@ function App() {
                   <PrivateRoute>
                     <Dashboard />
                   </PrivateRoute>
-                } />
+                } >
+
+                  <Route path='/admin/home' element={<PrivateRoute><Home/></PrivateRoute>}/>
+                  <Route path='/admin/myProfile' element={<PrivateRoute><Profile/></PrivateRoute>}/>
+                </Route>
             </>
           )
         }
