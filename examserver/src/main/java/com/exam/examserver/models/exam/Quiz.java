@@ -34,9 +34,37 @@ public class Quiz {
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
 
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
     @OneToMany(mappedBy = "quiz", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private Set<Question> questions = new HashSet<>();
+
+    public Set<Question> getQuestions() {
+        return questions;
+    }
+
+    public Quiz(Long qId, String title, String description, String maxMarks, String numberOfQuestions, boolean active,
+            Category category, Set<Question> questions) {
+        this.qId = qId;
+        this.title = title;
+        this.description = description;
+        this.maxMarks = maxMarks;
+        this.numberOfQuestions = numberOfQuestions;
+        this.active = active;
+        this.category = category;
+        this.questions = questions;
+    }
+
+    public void setQuestions(Set<Question> questions) {
+        this.questions = questions;
+    }
 
     public Quiz() {
     }

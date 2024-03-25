@@ -9,7 +9,6 @@ import Paper from '@mui/material/Paper';
 import { useDispatch, useSelector } from 'react-redux'
 import { login } from '../services/operations/authAPI'
 import { useNavigate } from 'react-router-dom'
-import { getUserDetails } from '../services/operations/profileAPI'
 
 
 export const Login = () => {
