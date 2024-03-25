@@ -4,7 +4,6 @@ import { apiConnector } from "../apiConnector"
 import { setLoading, setToken } from "../../slices/authSlice"
 import { setUser } from "../../slices/profileSlice"
 import { getUserDetails } from "./profileAPI"
-import { useSelector } from "react-redux"
 
 const {SIGNUP_API, LOGIN_API} = endpoints
 

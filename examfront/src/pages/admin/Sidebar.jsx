@@ -77,7 +77,7 @@ export const Sidebar = () => {
             </ListItem>
         </NavLink>
 
-        <NavLink to="/admin/quizzes">
+        <NavLink to="/admin/addCategory">
             <ListItem disablePadding>
             <ListItemButton className='flex items-start justify-start gap-7'>
             <div className='flex items-start justify-normal'>
@@ -90,7 +90,7 @@ export const Sidebar = () => {
             </ListItem>
         </NavLink>
 
-        <NavLink to="/admin/quizzes">
+        <NavLink to="/admin/addQuiz">
             <ListItem disablePadding>
             <ListItemButton className='flex items-start justify-start gap-7'>
             <div className='flex items-start justify-normal'>

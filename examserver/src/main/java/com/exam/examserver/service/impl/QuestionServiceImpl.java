@@ -16,6 +16,7 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Autowired
     private QuestionRepository questionRepository;
+    private Question question;
 
     @Override
     public Question addQuestion(Question question) {
@@ -42,5 +43,14 @@ public class QuestionServiceImpl implements QuestionService {
     public Set<Question> getQuestionsOfQuiz(Quiz quiz) {
         return this.questionRepository.findByQuiz(quiz);
     }
+
+    @Override
+    public void deleteQuestion(Long quesId) {
+        question = new Question();
+        question.setQuesId(quesId);
+        this.questionRepository.delete(question);
+    }
+
+    
     
 }

@@ -10,3 +10,9 @@ export const endpoints = {
 export const profileEndPoints = {
     GET_USER_DETAILS_API: BASE_URL + "/current-user"
 }
+
+// CATEGORY ENDPOINTS
+export const categoryEndPoints = {
+    GET_CATEGORY_API: BASE_URL + "/category/",
+    ADD_CATEGORY_API: BASE_URL + "/category/"
+}

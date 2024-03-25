@@ -13,6 +13,8 @@ import { ACCOUNT_TYPE } from './utils/Constants';
 import { Error } from './pages/Error';
 import { jwtDecode } from 'jwt-decode';
 import { Profile } from './pages/Profile';
+import { AddCategory } from './pages/admin/AddCategory';
+import { ViewCategories } from './pages/admin/ViewCategories';
 
 
 function App() {
@@ -63,6 +65,8 @@ function App() {
 
                   <Route path='/admin/home' element={<PrivateRoute><Home/></PrivateRoute>}/>
                   <Route path='/admin/myProfile' element={<PrivateRoute><Profile/></PrivateRoute>}/>
+                  <Route path='/admin/addCategory' element={<PrivateRoute><AddCategory/></PrivateRoute>}/>
+                  <Route path='/admin/categories' element={<PrivateRoute><ViewCategories/></PrivateRoute>}/>
                 </Route>
             </>
           )
