@@ -5,11 +5,13 @@ import { IoMdAdd } from "react-icons/io";
 import { useSelector } from 'react-redux';
 import { getAllCategories } from '../../services/operations/categoryAPI';
 import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 export const ViewCategories = () => {
 
     const [categories, setCategories] = useState([])
     const {token} = useSelector((state) => state.auth)
+    const navigate = useNavigate()
 
     const getCategories = async (token) => {
       const toastId = toast.loading("loading...")
@@ -48,8 +50,7 @@ export const ViewCategories = () => {
                 </ListItem>
                 ))}
                     
-            <div className='mx-auto'><Button variant="contained" color="secondary"><IoMdAdd size={20}/>  Add New Category</Button></div>
-
+            <div className='mx-auto'><Button variant="contained" onClick={()=>{navigate("/admin/addCategory")}} color="secondary"><IoMdAdd size={20}/>  Add New Category</Button></div>
                 
             </List>
         </Card>

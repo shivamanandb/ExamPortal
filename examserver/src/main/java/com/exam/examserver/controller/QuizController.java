@@ -36,6 +36,7 @@ public class QuizController {
     }
 
     // get quiz
+    @GetMapping("/")
     public ResponseEntity<?> quizzes() {
         return ResponseEntity.ok(this.quizService.getQuizzes());
     }
