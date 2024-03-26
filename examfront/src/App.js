@@ -15,6 +15,11 @@ import { jwtDecode } from 'jwt-decode';
 import { Profile } from './pages/Profile';
 import { AddCategory } from './pages/admin/AddCategory';
 import { ViewCategories } from './pages/admin/ViewCategories';
+import { ViewQuizzes } from './pages/admin/ViewQuizzes';
+import { AddQuiz } from './pages/admin/AddQuiz';
+import { UpdateQuiz } from './pages/admin/UpdateQuiz';
+import { ViewQuizQuestions } from './pages/admin/ViewQuizQuestions';
+import { AddQuestion } from './pages/admin/AddQuestion';
 
 
 function App() {
@@ -67,6 +72,11 @@ function App() {
                   <Route path='/admin/myProfile' element={<PrivateRoute><Profile/></PrivateRoute>}/>
                   <Route path='/admin/addCategory' element={<PrivateRoute><AddCategory/></PrivateRoute>}/>
                   <Route path='/admin/categories' element={<PrivateRoute><ViewCategories/></PrivateRoute>}/>
+                  <Route path='/admin/quizzes' element={<PrivateRoute><ViewQuizzes/></PrivateRoute>}/>
+                  <Route path='/admin/addQuiz' element={<PrivateRoute><AddQuiz/></PrivateRoute>}/>
+                  <Route path='/admin/updateQuiz/:quizId' element={<PrivateRoute><UpdateQuiz/></PrivateRoute>}/>
+                  <Route path='/admin/viewQuestions/:qId/:title' element={<PrivateRoute><ViewQuizQuestions/></PrivateRoute>}/>
+                  <Route path='/admin/addQuestion/:qId/:title' element={<PrivateRoute><AddQuestion/></PrivateRoute>}/>
                 </Route>
             </>
           )
