@@ -2,10 +2,17 @@ import toast from "react-hot-toast"
 import { quizzesEndPoints } from "../api"
 import { apiConnector } from "../apiConnector"
 
-let result = []
-const {GET_QUIZZES_API, ADD_QUIZ_API, DELETE_QUIZ_API, UPDATE_QUIZ_API, GET_QUIZ_API} = quizzesEndPoints
+
+const {GET_QUIZZES_API, 
+       ADD_QUIZ_API, 
+       DELETE_QUIZ_API, 
+       UPDATE_QUIZ_API, 
+       GET_QUIZ_API, 
+       GET_QUIZZES_BY_CATEGORY_API, 
+       GET_ACTIVE_QUIZZES, 
+       GET_ACTIVE_QUIZZES_BY_CATEGORY} = quizzesEndPoints
 export async function getAllQuizzes(token) {
-    
+    let result = []
     try {
 
         const response = await apiConnector("GET", GET_QUIZZES_API, null, {Authorization: `Bearer ${token}`})
@@ -103,4 +110,63 @@ export async function updateQuiz(quizId, data, token, navigate) {
         toast.error("Something went wrong")
     }
     toast.dismiss(toastId)
+}
+
+export async function getQuizzesOfCategory(cid, token) {
+    let res = []
+    try {
+
+        const response = await apiConnector("GET", GET_QUIZZES_BY_CATEGORY_API + cid, null, 
+        {
+            Authorization: `Bearer ${token}`
+        })
+        console.log("GET QUIZZES API RESPONSE..........", response)
+        res = response?.data
+
+    } catch(error) {
+
+        console.log("GET QUIZZES API ERROR............", error)
+        alert("Something went wrong")
+    }
+    return res
+}
+
+export async function getActiveQuizzes(token) {
+    let res = []
+    try {
+
+        const response = await apiConnector("GET", GET_ACTIVE_QUIZZES, null, 
+        {
+            Authorization: `Bearer ${token}`
+        })
+        console.log("GET ACTIVE QUIZZES API RESPONSE..........", response)
+        res = response?.data
+
+    } catch(error) {
+
+        console.log("GET ACTIVE QUIZZES API ERROR............", error)
+        alert("Something went wrong")
+    }
+    return res
+}
+
+export async function getActiveQuizzesByCategory(cid, token) {
+    let res = []
+    try {
+
+        const response = await apiConnector("GET", GET_ACTIVE_QUIZZES_BY_CATEGORY + cid, null, 
+        {
+            Authorization: `Bearer ${token}`
+        })
+        console.log("GET ACTIVE QUIZZES BY CATEGORY API RESPONSE..........", response)
+        res = response?.data
+        console.log("Response here:", res)
+
+    } catch(error) {
+
+        console.log("GET ACTIVE QUIZZES BY CATEGORY API ERROR............", error)
+        alert("Something went wrong")
+    }
+    return res
+
 }

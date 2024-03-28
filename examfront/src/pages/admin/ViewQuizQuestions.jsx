@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import { Link, useNavigate, useParams } from 'react-router-dom'
-import { getQuestionsOfQuiz } from '../../services/operations/questionAPI'
+import { deleteQuestion, getQuestionsOfQuiz } from '../../services/operations/questionAPI'
 import { Button, Card, CardActions, CardContent, Container, Divider, Grid, Typography } from '@mui/material'
+import SweetAlert from '../../component/SweetAlert'
 
 export const ViewQuizQuestions = () => {
 
@@ -26,7 +27,13 @@ export const ViewQuizQuestions = () => {
         fetchQuestionsByQuizId(qId, token)
     }, [qId, token])
 
-    console.log("Questions: ", questions)
+    const handleDelete = async(quesId, token) => {
+        await deleteQuestion(quesId, token)
+        setQuestions(questions.filter(question => question.quesId !== quesId))
+        console.log("Question Deleted")
+    }
+
+    // console.log("Questions: ", questions)
 
     return (
         <div>
@@ -74,10 +81,15 @@ export const ViewQuizQuestions = () => {
                                     </Typography>
                                 </CardContent>
                                 <CardActions>
-                                    <Button color="error">
-                                        Delete
-                                    </Button>
-                                    <Button color="primary">Update</Button>
+                                    <SweetAlert 
+                                        onDelete={() => handleDelete(q.quesId, token)}
+                                        title= 'Are you sure?'
+                                        text= 'You will not be able to recover this data!'
+                                        confirmButtonText= 'Yes, delete it!'
+                                        cancelButtonText= 'No, keep it' 
+                                        action="Deleted !"
+                                        actionMessage="This Question has been removed" />
+                                    <Button color="primary" onClick={()=> navigate(`/admin/updateQuestion/${q.quesId}`)}>Update</Button>
                                 </CardActions>
                             </Card>
                         </Grid>
