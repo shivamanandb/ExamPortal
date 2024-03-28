@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 import { apiConnector } from "../apiConnector";
 import { questionsEndPoints } from "../api";
 
-const {GET_ALL_QUESTIONS_API, ADD_QUESTION_API, DELETE_QUESTION_API, GET_SINGLE_QUESTION_API, UPDATE_QUESTION_API} = questionsEndPoints
+const {GET_ALL_QUESTIONS_API, GET_QUESTIONS_API, ADD_QUESTION_API, DELETE_QUESTION_API, GET_SINGLE_QUESTION_API, UPDATE_QUESTION_API} = questionsEndPoints
 
 export async function getQuestionsOfQuiz(quizId, token) {
 
@@ -24,6 +24,25 @@ export async function getQuestionsOfQuiz(quizId, token) {
         toast.error("Something went wrong")
     }
     toast.dismiss(toastId)
+    return res
+}
+
+export async function getQuestionsOfQuizForTest(quizId, token) {
+
+    let res = []
+    try {
+
+        const response = await apiConnector("GET", GET_QUESTIONS_API + `${quizId}`, null, 
+        {
+            Authorization : `Bearer ${token}`
+        })
+        console.log("GET QUESTIONS API RESPONSE..........", response)
+        res = response?.data
+
+    } catch(error) {
+        
+        console.log("GET ALL QUESTIONS API ERROR..........", error)
+    }
     return res
 }
 

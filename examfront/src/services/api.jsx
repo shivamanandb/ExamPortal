@@ -33,6 +33,7 @@ export const quizzesEndPoints = {
 // QUESTIONS ENDPOINTS
 export const questionsEndPoints = {
     GET_ALL_QUESTIONS_API: BASE_URL + "/question/quiz/all/",
+    GET_QUESTIONS_API: BASE_URL + "/question/quiz/",
     ADD_QUESTION_API: BASE_URL + "/question/",
     DELETE_QUESTION_API: BASE_URL + "/question/",
     GET_SINGLE_QUESTION_API: BASE_URL + "/question/",
