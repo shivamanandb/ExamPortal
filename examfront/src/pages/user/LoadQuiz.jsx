@@ -10,7 +10,7 @@ export const LoadQuiz = () => {
 
     const [quizzes, setQuizzes] = useState([])
     const { token } = useSelector((state) => state.auth)
-    
+
     const { cid } = useParams()
 
     useEffect(() => {
@@ -27,11 +27,11 @@ export const LoadQuiz = () => {
             else {
                 setQuizzes([])
                 try {
-                     
+
                     const categoryData = await getActiveQuizzesByCategory(cid, token);
                     setQuizzes(categoryData)
 
-                } catch(error) {
+                } catch (error) {
                     console.error('Error fetching quiz:', error.message)
                 }
                 console.log("Category Data: ", quizzes)
@@ -61,12 +61,18 @@ export const LoadQuiz = () => {
                                         <p className="truncate">{quiz.description}</p>
                                     </CardContent>
                                     <CardActions>
-                                    <Button variant="contained" component={Link} to={{ pathname: `/user/instructions/${quiz.qId}`, state: { quiz } }} color="error">
-                                        Start
-                                    </Button>
                                         <Button variant='contained' color="secondary">
-                                            View
+                                                View
                                         </Button>
+                                        <Button
+                                            variant="contained"
+                                            component={Link}
+                                            to={`/user/instructions/${quiz.qId}`}
+                                            color="error"
+                                        >
+                                            Start
+                                        </Button>
+                                        
                                         <Button color="warning">Questions: {quiz.numberOfQuestions}</Button>
                                         <Button color="primary">M.M: {quiz.maxMarks}</Button>
                                     </CardActions>
