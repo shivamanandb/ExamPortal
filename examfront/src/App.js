@@ -20,6 +20,9 @@ import { AddQuiz } from './pages/admin/AddQuiz';
 import { UpdateQuiz } from './pages/admin/UpdateQuiz';
 import { ViewQuizQuestions } from './pages/admin/ViewQuizQuestions';
 import { AddQuestion } from './pages/admin/AddQuestion';
+import { UpdateQuestion } from './pages/admin/UpdateQuestion';
+import { LoadQuiz } from './pages/user/LoadQuiz';
+import Instructions from './pages/user/Instructions';
 
 
 function App() {
@@ -52,7 +55,13 @@ function App() {
                   <PrivateRoute>
                     <UserDashboard />
                   </PrivateRoute>
-                } />
+                } >
+
+                  <Route path='/user/home' element={<PrivateRoute><Home/></PrivateRoute>}/>
+                  <Route path='/user/:cid' element={<PrivateRoute><LoadQuiz/></PrivateRoute>}/>
+                  <Route path='/user/instructions/:quizid' element={<PrivateRoute><Instructions/></PrivateRoute>}/>
+                
+                </Route>
             </>
           )
         }
@@ -77,6 +86,7 @@ function App() {
                   <Route path='/admin/updateQuiz/:quizId' element={<PrivateRoute><UpdateQuiz/></PrivateRoute>}/>
                   <Route path='/admin/viewQuestions/:qId/:title' element={<PrivateRoute><ViewQuizQuestions/></PrivateRoute>}/>
                   <Route path='/admin/addQuestion/:qId/:title' element={<PrivateRoute><AddQuestion/></PrivateRoute>}/>
+                  <Route path='/admin/updateQuestion/:quesId' element={<PrivateRoute><UpdateQuestion/></PrivateRoute>}/>
                 </Route>
             </>
           )

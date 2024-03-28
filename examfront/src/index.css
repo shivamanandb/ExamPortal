@@ -23,3 +23,11 @@ border-radius: 10px;
     background-image: url("/src/assets/exam.png");
     background-size: cover;
 } 
+
+.truncate {
+    display: block;
+    white-space: nowrap;
+    width: 320px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
