@@ -2,7 +2,7 @@ import toast from "react-hot-toast";
 import { apiConnector } from "../apiConnector";
 import { questionsEndPoints } from "../api";
 
-const {GET_ALL_QUESTIONS_API, GET_QUESTIONS_API, ADD_QUESTION_API, DELETE_QUESTION_API, GET_SINGLE_QUESTION_API, UPDATE_QUESTION_API} = questionsEndPoints
+const {GET_ALL_QUESTIONS_API,EVAL_QUIZ_API, GET_QUESTIONS_API, ADD_QUESTION_API, DELETE_QUESTION_API, GET_SINGLE_QUESTION_API, UPDATE_QUESTION_API} = questionsEndPoints
 
 export async function getQuestionsOfQuiz(quizId, token) {
 
@@ -124,4 +124,18 @@ export async function updateQuestion(quesId, data, token) {
         toast.error("Something went wrong")
     }
     toast.dismiss(toastId)
+}
+
+export async function evalQuizQuestions(questions, token) {
+    let result = []
+    try {
+
+        const response = await apiConnector("POST", EVAL_QUIZ_API, questions, {Authorization: `Bearer ${token}`})
+        console.log("FETCH EVALUATION API RESPONSE..........", response)
+        result = response?.data
+
+    } catch(error) {
+        console.log("FETCH EVALUATION API ERROR............", error)
+    }
+    return result
 }

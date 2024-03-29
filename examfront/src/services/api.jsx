@@ -37,6 +37,7 @@ export const questionsEndPoints = {
     ADD_QUESTION_API: BASE_URL + "/question/",
     DELETE_QUESTION_API: BASE_URL + "/question/",
     GET_SINGLE_QUESTION_API: BASE_URL + "/question/",
-    UPDATE_QUESTION_API: BASE_URL + "/question/"
+    UPDATE_QUESTION_API: BASE_URL + "/question/",
+    EVAL_QUIZ_API: BASE_URL + "/question/evalQuiz"
 }
 
