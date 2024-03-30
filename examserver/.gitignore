@@ -1,3 +1,6 @@
+# .gitignore
+
+# Ignored files and directories
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
@@ -31,4 +34,6 @@ build/
 
 ### VS Code ###
 .vscode/
-application.properties
+
+# Ignored application.properties
+examserver/src/main/resources/application.properties
