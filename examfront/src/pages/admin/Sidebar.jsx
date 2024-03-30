@@ -17,7 +17,7 @@ import { MdQuiz } from "react-icons/md";
 export const Sidebar = () => {
   return (
     <div>
-        <Paper variant="elevation" elevation={2} className='p-1' sx={{ width: '100%', maxWidth: 250, bgcolor: 'background.paper' }}>
+        <Paper variant="elevation" elevation={2} className='p-1' sx={{ width: '100%', maxWidth: 967, bgcolor: 'background.paper' }}>
           
           <div className='w-full p-1 mb-8 border border-dashed rounded-md border-rose-800 border-y-2'>
           <ListItemText>

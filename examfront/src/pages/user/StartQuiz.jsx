@@ -196,7 +196,7 @@ export const StartQuiz = () => {
                 </>
               )}
             </div>
-            <div className="w-2/12 ">
+            <div className="lg:w-2/12 ">
               <Card>
                 <CardHeader title="Progress" subheader="Quiz will automatically be submitted when the timer reaches 0:0" />
                 <CardContent>

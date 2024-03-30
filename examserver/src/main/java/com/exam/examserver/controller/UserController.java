@@ -57,6 +57,11 @@ public class UserController {
         return this.userService.getUser(username);
     }
 
+    @GetMapping("/test")
+    public String test() {
+        return "Welcome to backend api of ExamPortal Application";
+    }
+
     // delete the user by id
     @DeleteMapping("/{userId}")
     public void deleteUser(@PathVariable("userId") Long userId) {

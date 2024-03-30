@@ -59,15 +59,17 @@ function QuizInstructions() {
                 subheader="One step more to go"
                 />
             </div>
-            <CardContent className="ml-20">
-              <div className='flex flex-col items-center -ml-20'>
+            <CardContent className="lg:ml-20">
+              <div className='flex flex-col items-center  lg:-ml-20'>
                 <Typography variant="h4" className="text-rose-800">{quiz.title}</Typography>
                 <Typography variant="body1" className="text-emerald-900">{quiz.description}</Typography>
               </div>
               <div className='mt-3'></div>
-              <Divider className="my-4" />
+              <Divider className="lg:my-4" />
               <div  className='mb-8'></div>
-              <Typography variant="h4">Important Instructions</Typography>
+              <div className='text-3xl'>
+                <Typography variant="lg:h4">Important Instructions</Typography>
+              </div>
               <List> {/* Use List for semantic representation */}
                 <ListItem>
                 <PlayArrowSharpIcon/>
@@ -98,7 +100,7 @@ function QuizInstructions() {
                   <ListItemText primary="All questions are of MCQ types." />
                 </ListItem>
               </List>
-              <Divider className="my-4" />
+              <Divider className="lg:my-4" />
               <div  className='mb-8'></div>
               <Typography variant="h4">Attempting Quiz</Typography>
               <List>

@@ -4,17 +4,17 @@ import Sidebar from './Sidebar';
 
 export const UserDashboard = () => {
   return (
-    <div className='flex flex-row gap-5 m-5' >
-      <div className='w-2/12'>
-        <div className=''>   
-        <Sidebar/>
+    <div className='flex flex-col md:flex-row md:gap-5 m-5'>
+      <div className='md:w-2/12'>
+        <div className=''>
+          <Sidebar />
         </div>
       </div>
-      <div className='w-10/12'>
+      <div className='md:w-10/12 mt-5 md:mt-0'>
         <div>
-          <Outlet/>
+          <Outlet />
         </div>
       </div>
     </div>
   );
-}
+};

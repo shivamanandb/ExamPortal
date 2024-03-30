@@ -1,36 +1,34 @@
-import React, { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { useSelector } from 'react-redux'
-import { addQuiz } from '../../services/operations/quizAPI'
-import { Button, Card, FormControl, InputLabel, MenuItem, Select, Switch, TextField, Typography } from '@mui/material'
-import { getAllCategories } from '../../services/operations/categoryAPI'
+import React, { useEffect, useState } from 'react';
+import { useForm } from 'react-hook-form';
+import { useSelector } from 'react-redux';
+import { addQuiz } from '../../services/operations/quizAPI';
+import { Button, Card, FormControl, InputLabel, MenuItem, Select, Switch, TextField, Typography } from '@mui/material';
+import { getAllCategories } from '../../services/operations/categoryAPI';
 
 export const AddQuiz = () => {
+    const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm();
+    const { token } = useSelector((state) => state.auth);
+    const [categories, setCategories] = useState([]);
+    const [publishStatus, setPublishStatus] = useState(false);
+    const [selectedCategory, setSelectedCategory] = useState('');
 
-    const { register, handleSubmit, reset, formState: { errors, isSubmitSuccessful } } = useForm()
-    const { token } = useSelector((state) => state.auth)
-    const [categories, setCategories] = useState([])
-    const [publishStatus, setPublishStatus] = useState(false) // State for Switch component
-    const [selectedCategory, setSelectedCategory] = useState([]) // State for Select component
-
-        useEffect(() => {
-            const getCategories = async () => {
-                try {
-                    const res = await getAllCategories(token);
-                    setCategories(res)
-                } catch (error) {
-                    console.log("fetching Categories error")
-                }
-            };
-            getCategories();
-        }, [token])
+    useEffect(() => {
+        const getCategories = async () => {
+            try {
+                const res = await getAllCategories(token);
+                setCategories(res);
+            } catch (error) {
+                console.log("Fetching Categories error:", error);
+            }
+        };
+        getCategories();
+    }, [token]);
 
     const formSubmit = (data) => {
-        data.active = publishStatus; // Set the active property based on the Switch component
-        data.category = selectedCategory // Set the category based on the Select component
-        // console.log("DATA:", data)
-        addQuiz(data, token)
-    }
+        data.active = publishStatus;
+        data.category = selectedCategory;
+        addQuiz(data, token);
+    };
 
     useEffect(() => {
         if (isSubmitSuccessful) {
@@ -40,11 +38,11 @@ export const AddQuiz = () => {
                 maxMarks: "",
                 numberOfQuestions: "",
                 category: null
-            })
-            setPublishStatus(false); // Reset Switch component to default state
-            setSelectedCategory(""); // Reset Select component to default state
+            });
+            setPublishStatus(false);
+            setSelectedCategory("");
         }
-    }, [isSubmitSuccessful, reset])
+    }, [isSubmitSuccessful, reset]);
 
     return (
         <div>
@@ -52,12 +50,10 @@ export const AddQuiz = () => {
                 <Typography variant="subtitle1" className='p-4' component="div" style={{ fontWeight: 'bold' }}>
                     <div className='text-2xl'> Add New Quiz</div>
                 </Typography>
-
                 <div className='p-7'>
-                    <form className='flex flex-col items-center justify-center gap-6' onSubmit={handleSubmit(formSubmit)}>
-                        <TextField className='w-8/12 mx-auto'
+                    <form className='flex flex-col gap-6 items-center justify-center' onSubmit={handleSubmit(formSubmit)}>
+                        <TextField className='w-full lg:w-8/12'
                             size='small'
-                            id="text-filled"
                             label="Title"
                             name='title'
                             variant="filled"
@@ -65,16 +61,11 @@ export const AddQuiz = () => {
                             placeholder='Enter Title here'
                             {...register("title", { required: true })}
                         />
-                        {errors.title && (
-                            <span className="-mt-5 text-[12px] text-yellow-900">
-                                Please enter the Title.
-                            </span>
-                        )}
+                        {errors.title && <span className="text-sm text-red-500">Please enter the Title.</span>}
                         <TextField rows={4}
-                            className='w-8/12'
+                            className='w-full lg:w-8/12'
                             size='small'
                             multiline
-                            id="text-filled"
                             label="Description"
                             name='description'
                             color='secondary'
@@ -82,116 +73,70 @@ export const AddQuiz = () => {
                             placeholder='Enter Description here'
                             {...register("description", { required: true })}
                         />
-                        {errors.description && (
-                            <span className="-mt-5 text-[12px] text-yellow-900">
-                                Please enter Description.
-                            </span>
-                        )}
-
-                        <div className='flex flex-row justify-between w-8/12 gap-3'>
-                            <div className='flex flex-col w-6/12'>
-                                <TextField
-
-                                    size='small'
-                                    id="text-filled"
-                                    label="Maximum Marks"
-                                    name='maxMarks'
-                                    color='secondary'
-                                    variant="filled"
-                                    placeholder='Enter Maximum Marks'
-                                    type="text" // Set input type to "text"
-                                    inputProps={{ pattern: "^[0-9]*$", inputMode: "numeric" }} // Specify pattern for integers only and set input mode to "numeric"
-                                    {...register("maxMarks", { required: true })} // Add required validation
-                                    onChange={(e) => {
-                                        const { value } = e.target;
-                                        if (!Number.isInteger(Number(value))) {
-                                            e.target.value = value.slice(0, -1);
-                                        }
-                                    }} // Remove non-numeric characters on change
-                                />
-                                {errors.maxMarks && (
-                                    <span className="mt-1 text-[12px] text-yellow-900">
-                                        Please enter Maximum Marks.
-                                    </span>
-                                )}
-                            </div>
-                            <div className='flex flex-col w-6/12'>
-                                <TextField
-                                    size='small'
-                                    id="text-filled"
-                                    label="Number of Questions"
-                                    name='numberOfQuestions'
-                                    color='secondary'
-                                    variant="filled"
-                                    placeholder='Enter Number of Questions'
-                                    type="text" // Set input type to "text"
-                                    inputProps={{ pattern: "^[0-9]*$", inputMode: "numeric" }} // Specify pattern for integers only and set input mode to "numeric"
-                                    {...register("numberOfQuestions", { required: true })} // Add required validation
-                                    onChange={(e) => {
-                                        const { value } = e.target;
-                                        if (!Number.isInteger(Number(value))) {
-                                            e.target.value = value.slice(0, -1);
-                                        }
-                                    }} // Remove non-numeric characters on change
-                                />
-
-                                {errors.numberOfQuestions && (
-                                    <span className="mt-1 text-[12px] text-yellow-900">
-                                        Please enter the Number of Questions.
-                                    </span>
-                                )}
-                            </div>
+                        {errors.description && <span className="text-sm text-red-500">Please enter Description.</span>}
+                        <div className='grid grid-cols-1 md:grid-cols-2 lg:w-8/12 gap-6'>
+                            <TextField
+                                className='w-full '
+                                size='small'
+                                label="Maximum Marks"
+                                name='maxMarks'
+                                color='secondary'
+                                variant="filled"
+                                placeholder='Enter Maximum Marks'
+                                type="number"
+                                inputProps={{ min: 0 }}
+                                {...register("maxMarks", { required: true })}
+                            />
+                            {errors.maxMarks && <span className="text-sm text-red-500">Please enter Maximum Marks.</span>}
+                            <TextField
+                                className='w-full'
+                                size='small'
+                                label="Number of Questions"
+                                name='numberOfQuestions'
+                                color='secondary'
+                                variant="filled"
+                                placeholder='Enter Number of Questions'
+                                type="number"
+                                inputProps={{ min: 0 }}
+                                {...register("numberOfQuestions", { required: true })}
+                            />
+                            {errors.numberOfQuestions && <span className="text-sm text-red-500">Please enter the Number of Questions.</span>}
                         </div>
-
-
-                        <div className='flex items-center justify-start'>
+                        <div className='flex items-center'>
                             <Switch
                                 checked={publishStatus}
-                                onChange={() => setPublishStatus(!publishStatus)} // Toggle publish status
+                                onChange={() => setPublishStatus(!publishStatus)}
                                 inputProps={{ 'aria-label': 'controlled' }}
                                 color='warning'
                             /> Publish Status
                         </div>
-                        <FormControl className='w-8/12' variant="filled">
+                        <FormControl className='w-full lg:w-8/12' variant="filled">
                             <InputLabel color='secondary' id="demo-simple-select-filled-label">Category</InputLabel>
                             <Select
                                 labelId="demo-simple-select-filled-label"
                                 id="demo-simple-select-filled"
                                 size='small'
                                 color='secondary'
-                                value={selectedCategory} // Pass the entire category object as the value
-                                {...register("category", { required: true })} // Add required validation
-                                onChange={(e) => setSelectedCategory(e.target.value)} // Update selectedCategory state
+                                value={selectedCategory}
+                                {...register("category", { required: true })}
+                                onChange={(e) => setSelectedCategory(e.target.value)}
                             >
                                 <MenuItem value="">
                                     <em>None</em>
                                 </MenuItem>
-                                {
-                                    categories.map((category) => ( // Map over categories array
-                                        <MenuItem key={category.cid} value={category}> {category.title} </MenuItem> // Pass category object as value
-                                    ))
-                                }
+                                {categories.map((category) => (
+                                    <MenuItem key={category.cid} value={category}>{category.title}</MenuItem>
+                                ))}
                             </Select>
-
-                            {errors.category && (
-                                <span className="mt-1 text-[12px] text-yellow-900">
-                                    Please Enter valid category.
-                                </span>
-                            )}
+                            {errors.category && <span className="text-sm text-red-500">Please Enter valid category.</span>}
                         </FormControl>
-
-                        <div className='flex items-center justify-center gap-10 mt-5'>
-                            <Button type='submit' variant="contained" color="success">
-                                ADD
-                            </Button>
-                            <Button type='button' variant="contained" color="success" onClick={() => reset()}>
-                                Reset
-                            </Button>
+                        <div className='flex justify-center md:justify-start gap-4'>
+                            <Button type='submit' variant="contained" color="success">ADD</Button>
+                            <Button type='button' variant="contained" color="success" onClick={() => reset()}>Reset</Button>
                         </div>
                     </form>
-
                 </div>
             </Card>
         </div>
-    )
-}
+    );
+};
